@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Image from "next/image";
 import { useRef } from "react";
 
 const BASE_PATH = "/fadesandfacials";
@@ -82,12 +81,11 @@ function ProductCard({ product }) {
     >
       <div className="product-card-face">
         <div className="product-card-photo product-card-photo--png">
-          <Image
+          <img
             src={product.image}
-            alt=""
-            fill
+            alt={product.name}
+            loading="lazy"
             className="product-card-img product-card-img--png"
-            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
           />
         </div>
         <span className="product-card-tag">{product.tag}</span>
