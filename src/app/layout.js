@@ -1,5 +1,6 @@
 import { Exo_2, Inter } from "next/font/google";
 import "./globals.css";
+import { BASE_PATH } from "../lib/basePath";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,8 +13,6 @@ const exo = Exo_2({
   display: "swap",
   variable: "--font-exo",
 });
-
-const BASE_PATH = "/fadesandfacials";
 
 export const metadata = {
   title: "Fades & Facials | Barbershop",

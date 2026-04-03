@@ -3,8 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-const BASE_PATH = "/fadesandfacials";
+import { BASE_PATH } from "../lib/basePath";
 
 const links = [
   { href: `${BASE_PATH}/#home`, label: "Home", idx: "01" },

@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
-const BASE_PATH = "/fadesandfacials";
+import { BASE_PATH } from "../lib/basePath";
 
 const SERVICES = [
   {

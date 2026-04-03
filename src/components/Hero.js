@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BASE_PATH } from "../lib/basePath";
 
 const ease = [0.22, 1, 0.36, 1];
-const BASE_PATH = "/fadesandfacials";
 
 export function Hero() {
   return (
@@ -35,7 +35,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.45, ease }}
         >
-          REDEFINING THE ART
+          <span className="hero-experience-title-word">
+            Fades <span className="hero-experience-title-accent">and</span> Facials
+          </span>
         </motion.h1>
 
         <motion.p

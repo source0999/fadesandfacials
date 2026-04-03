@@ -1,9 +1,8 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
-
-const BASE_PATH = "/fadesandfacials";
+import { useEffect, useRef, useState } from "react";
+import { BASE_PATH } from "../lib/basePath";
 
 const PRODUCTS = [
   {
@@ -40,6 +39,21 @@ function ProductCard({ product }) {
   const ref = useRef(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
+  const [tiltEnabled, setTiltEnabled] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    function sync() {
+      setTiltEnabled(mq.matches);
+    }
+    sync();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", sync);
+      return () => mq.removeEventListener("change", sync);
+    }
+    mq.addListener(sync);
+    return () => mq.removeListener(sync);
+  }, []);
 
   function onMove(e) {
     const el = ref.current;
@@ -65,17 +79,25 @@ function ProductCard({ product }) {
     damping: 22,
   });
 
+  const tiltStyle = tiltEnabled
+    ? {
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }
+    : {
+        rotateX: 0,
+        rotateY: 0,
+        transformStyle: "flat",
+      };
+
   return (
     <motion.article
       ref={ref}
       className="product-card"
-      onPointerMove={onMove}
-      onPointerLeave={onLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
+      onPointerMove={tiltEnabled ? onMove : undefined}
+      onPointerLeave={tiltEnabled ? onLeave : undefined}
+      style={tiltStyle}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 28 }}
     >
@@ -84,7 +106,8 @@ function ProductCard({ product }) {
           <img
             src={product.image}
             alt={product.name}
-            loading="lazy"
+            loading="eager"
+            decoding="async"
             className="product-card-img product-card-img--png"
           />
         </div>
