@@ -80,17 +80,39 @@ function MorphHamburger({ open, onClick, className }) {
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
 
-  const elevated = scrolled || open;
+  const pill = navVisible || open;
 
   useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 50);
+    function update() {
+      const heroEl = document.getElementById("home");
+      const headerOffset = 96; // makes the transition happen right after the hero
+      if (!heroEl) {
+        setNavVisible(window.scrollY > headerOffset);
+        return;
+      }
+
+      const threshold = heroEl.offsetTop + heroEl.offsetHeight - headerOffset;
+      setNavVisible(window.scrollY >= threshold);
     }
+
+    let rafId = 0;
+    function onScroll() {
+      // Throttle scroll handler for smoother motion.
+      window.cancelAnimationFrame(rafId);
+      rafId = window.requestAnimationFrame(update);
+    }
+
+    update();
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -130,40 +152,49 @@ export function Navigation() {
 
   return (
     <>
-      <header
-        className={`nav-header${elevated ? " nav-header--elevated" : ""}`}
+      <motion.header
+        className={`nav-header${pill ? " nav-header--visible" : ""}`}
         aria-label="Main"
+        initial={{ opacity: 0, y: "100%", scale: 0.98 }}
+        animate={{
+          opacity: pill ? 1 : 0,
+          y: pill ? 0 : "100%",
+          scale: pill ? 1 : 0.98,
+        }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <a
-          href={`${BASE_PATH}/#home`}
-          className="nav-brand nav-brand--logo-only"
-          aria-label="Fades & Facials — Home"
-        >
-          <Image
-            src={`${BASE_PATH}/logo.png`}
-            alt=""
-            width={90}
-            height={66}
-            priority
-            className="nav-brand-mark"
+        <div className="nav-header-pill">
+          <a
+            href={`${BASE_PATH}/#home`}
+            className="nav-brand nav-brand--logo-only"
+            aria-label="Fades & Facials — Home"
+          >
+            <Image
+              src={`${BASE_PATH}/logo.png`}
+              alt=""
+              width={90}
+              height={66}
+              priority
+              className="nav-brand-mark"
+            />
+            <span className="sr-only">Fades &amp; Facials</span>
+          </a>
+
+          <nav className="nav-desktop" aria-label="Primary desktop">
+            {links.map((link) => (
+              <a key={link.href} href={link.href} className="nav-desktop-link">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <MorphHamburger
+            open={open}
+            onClick={toggleMenu}
+            className="nav-menu-trigger"
           />
-          <span className="sr-only">Fades &amp; Facials</span>
-        </a>
-
-        <nav className="nav-desktop" aria-label="Primary desktop">
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className="nav-desktop-link">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <MorphHamburger
-          open={open}
-          onClick={toggleMenu}
-          className="nav-menu-trigger"
-        />
-      </header>
+        </div>
+      </motion.header>
 
       <AnimatePresence>
         {open ? (
@@ -180,10 +211,10 @@ export function Navigation() {
           >
             <motion.div
               className="nav-overlay-panel"
-              initial={{ opacity: 0.92 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0.92 }}
-              transition={{ duration: 0.35 }}
+              initial={{ opacity: 0.85, y: -24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0.85, y: -24 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => setOpen(false)}
               role="presentation"
             >

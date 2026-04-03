@@ -99,13 +99,28 @@ img {
   right: 0;
   z-index: 110;
   display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.nav-header--visible {
+  pointer-events: auto;
+}
+
+.nav-header-pill {
+  width: calc(100% - 2rem);
+  max-width: 52rem;
+  margin: 0;
+  padding: 0.75rem 1.15rem;
+  padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 1.15rem;
-  padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
   pointer-events: auto;
   background: transparent;
+  border-radius: 9999px;
   border-bottom: 1px solid transparent;
   transition:
     background 0.35s ease,
@@ -114,15 +129,17 @@ img {
     backdrop-filter 0.35s ease;
 }
 
-.nav-header--elevated {
+.nav-header--visible .nav-header-pill {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom-color: rgba(0, 112, 243, 0.12);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border-bottom-color: rgba(0, 112, 243, 0.35);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 -2px 0 rgba(0, 112, 243, 0.38);
 }
 
-.nav-header:not(.nav-header--elevated) .nav-brand-mark {
+.nav-header:not(.nav-header--visible) .nav-brand-mark {
   filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.45));
 }
 
@@ -155,7 +172,7 @@ img {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
 
-.nav-header--elevated .nav-desktop-link {
+.nav-header--visible .nav-desktop-link {
   color: var(--text);
   text-shadow: none;
 }
@@ -167,8 +184,8 @@ img {
   outline: none;
 }
 
-.nav-header:not(.nav-header--elevated) .nav-desktop-link:hover,
-.nav-header:not(.nav-header--elevated) .nav-desktop-link:focus-visible {
+.nav-header:not(.nav-header--visible) .nav-desktop-link:hover,
+.nav-header:not(.nav-header--visible) .nav-desktop-link:focus-visible {
   color: #ffffff;
   background: rgba(0, 112, 243, 0.35);
 }
@@ -191,8 +208,8 @@ img {
   outline: none;
 }
 
-.nav-header--elevated .nav-brand:hover,
-.nav-header--elevated .nav-brand:focus-visible {
+.nav-header--visible .nav-brand:hover,
+.nav-header--visible .nav-brand:focus-visible {
   background: var(--electric-soft);
 }
 
@@ -249,7 +266,7 @@ img {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
-.nav-header--elevated .nav-menu-trigger {
+.nav-header--visible .nav-menu-trigger {
   border-color: rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.65);
   color: var(--text);
@@ -264,8 +281,8 @@ img {
   outline: none;
 }
 
-.nav-header--elevated .nav-menu-trigger:hover,
-.nav-header--elevated .nav-menu-trigger:focus-visible {
+.nav-header--visible .nav-menu-trigger:hover,
+.nav-header--visible .nav-menu-trigger:focus-visible {
   background: rgba(0, 112, 243, 0.12);
   color: var(--electric);
 }
@@ -279,7 +296,7 @@ img {
 .nav-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 120;
   display: flex;
   align-items: stretch;
   justify-content: stretch;
@@ -300,8 +317,8 @@ img {
     rgba(255, 255, 255, 0.88) 45%,
     #ffffff 100%
   );
-  backdrop-filter: blur(36px);
-  -webkit-backdrop-filter: blur(36px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   pointer-events: auto;
 }
 
@@ -365,10 +382,10 @@ img {
   position: absolute;
   z-index: 0;
   top: 0;
-  left: 50%;
+  left: 0;
   width: 100vw;
   height: 100svh;
-  transform: translateX(-50%);
+  transform: none;
 }
 
 .hero-experience-video {
@@ -383,18 +400,26 @@ img {
 
 @media (max-width: 767px) {
   .hero-experience-media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
   }
 
   .hero-experience-video {
-    width: 118%;
-    height: 118%;
+    width: 100vw;
+    height: 100svh;
     max-width: none;
-    margin: -9% 0 0 -9%;
+    margin: 0;
     object-fit: cover;
     object-position: 50% 38%;
+  }
+
+  /* Mobile: avoid reserved space inside cards to prevent white gaps. */
+  .product-card-face {
+    min-height: auto;
+  }
+
+  /* Mobile: tighten vertical spacing without fixed heights. */
+  .services-showcase {
+    padding: 3rem 0 2.5rem;
   }
 }
 
@@ -413,8 +438,15 @@ img {
 .hero-experience-content {
   position: relative;
   z-index: 1;
-  padding: calc(4.25rem + env(safe-area-inset-top, 0px)) 1.5rem 4.5rem;
+  width: 100%;
+  padding: calc(2.75rem + env(safe-area-inset-top, 0px)) 1.5rem
+    calc(2.75rem + env(safe-area-inset-bottom, 0px));
   max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero-experience-title {
