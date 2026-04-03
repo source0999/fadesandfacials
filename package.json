@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
@@ -15,5 +16,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
