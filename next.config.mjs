@@ -12,6 +12,9 @@ const nextConfig = {
   assetPrefix: isProd ? repoBasePath : "",
   env: {
     NEXT_PUBLIC_BASE_PATH: isProd ? repoBasePath : "",
+    NEXT_PUBLIC_SITE_ORIGIN:
+      process.env.NEXT_PUBLIC_SITE_ORIGIN ??
+      (isProd ? "https://source0999.github.io" : "http://localhost:3000"),
   },
 };
 

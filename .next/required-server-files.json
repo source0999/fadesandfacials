@@ -2,7 +2,8 @@
   "version": 1,
   "config": {
     "env": {
-      "NEXT_PUBLIC_BASE_PATH": "/fadesandfacials"
+      "NEXT_PUBLIC_BASE_PATH": "/fadesandfacials",
+      "NEXT_PUBLIC_SITE_ORIGIN": "https://source0999.github.io"
     },
     "webpack": null,
     "eslint": {

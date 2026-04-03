@@ -1,11 +1,13 @@
 :root {
   --white: #ffffff;
+  --surface: #ffffff;
   --electric: #0070f3;
   --electric-soft: rgba(0, 112, 243, 0.12);
   --electric-border: rgba(0, 112, 243, 0.35);
   --electric-glow: rgba(0, 112, 243, 0.5);
   --text: #000000;
   --text-muted: rgba(0, 0, 0, 0.55);
+  --hairline: rgba(0, 112, 243, 0.12);
 }
 
 *,
@@ -17,6 +19,8 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  position: relative;
+  max-width: 100%;
 }
 
 body {
@@ -24,6 +28,10 @@ body {
   min-height: 100dvh;
   color: var(--text);
   background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+  max-width: 100%;
 }
 
 a {
@@ -51,10 +59,20 @@ img {
 
 .page-template {
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .main-surface {
   padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  flex: 1 0 auto;
 }
 
 .btn-appointment {
@@ -96,8 +114,9 @@ img {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
   right: 0;
-  z-index: 110;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,7 +130,8 @@ img {
     background 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease,
-    backdrop-filter 0.35s ease;
+    backdrop-filter 0.35s ease,
+    -webkit-backdrop-filter 0.35s ease;
 }
 
 .nav-header--visible {
@@ -120,8 +140,8 @@ img {
 
 .nav-header--elevated {
   background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom-color: rgba(0, 112, 243, 0.12);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
@@ -376,8 +396,8 @@ img {
 .hero-experience {
   position: relative;
   width: 100%;
-  height: 100svh;
   min-height: 100svh;
+  height: 100svh;
   max-height: 100svh;
   display: flex;
   align-items: center;
@@ -391,19 +411,23 @@ img {
   z-index: 0;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100svh;
+  width: 100%;
+  height: 100%;
   transform: none;
 }
 
 .hero-experience-video {
-  width: 100vw;
-  height: 100svh;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
   border: none;
   outline: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 @media (max-width: 767px) {
@@ -412,8 +436,9 @@ img {
   }
 
   .hero-experience-video {
-    width: 100vw;
-    height: 100svh;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
     max-width: none;
     margin: 0;
     object-fit: cover;
@@ -434,10 +459,13 @@ img {
 .hero-experience-fade {
   position: absolute;
   inset: 0;
+  /* Keep top clear so the fixed nav area doesn’t sit on a dark “band” */
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    transparent 60%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.18) 72%,
+    rgba(255, 255, 255, 0.85) 94%,
     #ffffff 100%
   );
   pointer-events: none;
@@ -447,28 +475,30 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: calc(2.75rem + env(safe-area-inset-top, 0px)) 1.5rem
-    calc(2.75rem + env(safe-area-inset-bottom, 0px));
-  max-width: 40rem;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: calc(3.25rem + env(safe-area-inset-top, 0px)) 1.5rem
+    calc(3rem + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  gap: 1.25rem;
 }
 
 .hero-experience-title {
   margin: 0;
   font-family: var(--font-exo), ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(2rem, 7.5vw, 3.75rem);
+  font-size: clamp(2.35rem, 8.5vw, 4.1rem);
   font-weight: 200;
   letter-spacing: -0.02em;
-  line-height: 1.08;
-  color: var(--white);
+  line-height: 1.06;
+  color: #ffffff;
   text-transform: none;
   text-shadow:
-    0 2px 32px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(0, 112, 243, 0.25);
+    0 2px 4px rgba(0, 0, 0, 0.55),
+    0 8px 40px rgba(0, 0, 0, 0.35);
 }
 
 .hero-experience-title-word {
@@ -476,32 +506,37 @@ img {
 }
 
 .hero-experience-title-accent {
-  color: #7ec8ff;
+  color: #a5d8ff;
   font-weight: 300;
   font-style: italic;
   letter-spacing: 0.02em;
 }
 
 .hero-experience-sub {
-  margin: 1.25rem 0 0;
-  font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  margin: 0;
+  font-size: clamp(1rem, 3.4vw, 1.2rem);
   font-weight: 400;
   letter-spacing: 0.02em;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.4);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
 .hero-experience-cta {
-  margin-top: 2.25rem;
+  margin: 0;
+  padding-top: 1rem;
 }
 
 /* --- Sections --- */
 .section-block {
   max-width: 44rem;
+  width: 100%;
   margin: 0 auto;
   padding: 3rem 1.5rem;
-  border-top: 1px solid rgba(0, 112, 243, 0.15);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .section-title {
@@ -510,7 +545,8 @@ img {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text);
-  margin: 0 0 0.65rem;
+  margin: 0;
+  padding-bottom: 0.65rem;
 }
 
 .section-lede {
@@ -526,9 +562,14 @@ img {
   position: relative;
   overflow: hidden;
   padding: 3rem 0 2.5rem;
-  border-top: 1px solid rgba(0, 112, 243, 0.15);
-  background: var(--white);
+  border-top: 1px solid var(--hairline);
+  background: var(--surface);
   isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .services-kinetic-layer {
@@ -569,11 +610,13 @@ img {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin: 0 0 0.5rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
 }
 
 .services-lede {
-  margin: 0 0 2rem;
+  margin: 0;
+  padding-bottom: 2rem;
   color: var(--text-muted);
   font-size: 0.98rem;
   line-height: 1.6;
@@ -629,7 +672,8 @@ img {
 }
 
 .services-item-photo {
-  margin-top: 1.15rem;
+  margin: 0;
+  padding-top: 1.15rem;
   border-radius: 1rem;
   overflow: hidden;
   line-height: 0;
@@ -641,24 +685,36 @@ img {
 
 .services-item-img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
   aspect-ratio: 16 / 10;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* --- Products --- */
 .products-section {
-  padding: 0;
+  padding: 0 0 0.5rem;
   border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .products-section .section-title {
-  margin-bottom: 0.5rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
 }
 
 .products-section .section-lede {
-  margin-bottom: 1.75rem;
+  margin: 0;
+  padding-bottom: 1.75rem;
 }
 
 .product-grid {
@@ -712,8 +768,10 @@ img {
 .product-card-photo {
   position: relative;
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 4 / 3;
   background: rgba(239, 246, 255, 0.5);
+  overflow: hidden;
 }
 
 .product-card-photo--png {
@@ -724,10 +782,12 @@ img {
 
 .product-card-img {
   object-fit: cover;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .product-card-img--png {
-  object-fit: contain;
   /* No mix-blend-mode: iOS Chrome/WebKit often hides images when combined with 3D transforms. */
 }
 
@@ -736,7 +796,14 @@ img {
   position: absolute;
   inset: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.product-card-photo--png .product-card-img {
+  object-fit: contain;
 }
 
 .product-card-tag,
@@ -754,7 +821,8 @@ img {
 }
 
 .product-card-tag {
-  margin-top: 1rem;
+  margin: 0;
+  padding-top: 1rem;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -785,5 +853,6 @@ img {
 }
 
 .section-cart {
-  margin-bottom: 3rem;
+  margin: 0;
+  padding-bottom: 3rem;
 }

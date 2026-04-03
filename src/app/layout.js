@@ -1,6 +1,5 @@
 import { Exo_2, Inter } from "next/font/google";
 import "./globals.css";
-import { BASE_PATH } from "../lib/basePath";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,12 +13,35 @@ const exo = Exo_2({
   variable: "--font-exo",
 });
 
+const origin = (process.env.NEXT_PUBLIC_SITE_ORIGIN || "http://localhost:3000").replace(
+  /\/$/,
+  ""
+);
+const sub = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
+const metadataBaseUrl = sub ? `${origin}${sub}/` : `${origin}/`;
+
 export const metadata = {
+  metadataBase: new URL(metadataBaseUrl),
   title: "Fades & Facials | Barbershop",
   description: "It's more than a haircut. It's an experience.",
   icons: {
-    icon: `${BASE_PATH}/logo.ico`,
+    icon: "/logo.ico",
+    apple: "/logo.png",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Fades & Facials",
+  },
+};
+
+/** iOS pinned Web App: stable scale + safe-area (locks layout; less ideal for a11y zoom) */
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }) {

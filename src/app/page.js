@@ -11,7 +11,7 @@ export default function Home() {
       <main className="main-surface">
         <Hero />
 
-        <ScrollReveal className="section-block section-book" delay={0}>
+        <ScrollReveal className="section-block section-book">
           <h2 className="section-title" id="book">
             Book Now
           </h2>
@@ -23,11 +23,12 @@ export default function Home() {
 
         <ServicesShowcase />
 
-        <ScrollReveal className="section-block" delay={0.05}>
+        {/* No ScrollReveal: iOS Safari/Chrome often never satisfy Framer whileInView; content stayed opacity:0 */}
+        <div className="section-block">
           <ProductsSection />
-        </ScrollReveal>
+        </div>
 
-        <ScrollReveal className="section-block section-cart" delay={0.06}>
+        <ScrollReveal className="section-block section-cart">
           <h2 className="section-title" id="cart">
             Cart
           </h2>
