@@ -13,11 +13,13 @@ const exo = Exo_2({
   variable: "--font-exo",
 });
 
+const BASE_PATH = "/fadesandfacials";
+
 export const metadata = {
   title: "Fades & Facials | Barbershop",
   description: "It's more than a haircut. It's an experience.",
   icons: {
-    icon: "/logo.ico",
+    icon: `${BASE_PATH}/logo.ico`,
   },
 };
 

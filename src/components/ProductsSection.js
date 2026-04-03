@@ -4,34 +4,36 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
+const BASE_PATH = "/fadesandfacials";
+
 const PRODUCTS = [
   {
     id: "item-1",
     name: "Matte Clay",
     tag: "Hold / Texture",
     price: "$24",
-    image: "/item1.png",
+    image: `${BASE_PATH}/item1.png`,
   },
   {
     id: "item-2",
     name: "Sea Salt Mist",
     tag: "Volume / Grit",
     price: "$22",
-    image: "/item2.png",
+    image: `${BASE_PATH}/item2.png`,
   },
   {
     id: "item-3",
     name: "Post-Shave Balm",
     tag: "Calm / Repair",
     price: "$28",
-    image: "/item3.png",
+    image: `${BASE_PATH}/item3.png`,
   },
   {
     id: "item-4",
     name: "Daily Moisturizer",
     tag: "Hydrate / Finish",
     price: "$26",
-    image: "/item4.png",
+    image: `${BASE_PATH}/item4.png`,
   },
 ];
 

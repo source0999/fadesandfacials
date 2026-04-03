@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 
 const ease = [0.22, 1, 0.36, 1];
+const BASE_PATH = "/fadesandfacials";
 
 export function Hero() {
   return (
@@ -22,7 +23,7 @@ export function Hero() {
           preload="auto"
           aria-hidden
         >
-          <source src="/chairs.mp4" type="video/mp4" />
+          <source src={`${BASE_PATH}/chairs.mp4`} type="video/mp4" />
         </video>
         <div className="hero-experience-fade" aria-hidden />
       </motion.div>

@@ -2,26 +2,28 @@
 
 import Image from "next/image";
 
+const BASE_PATH = "/fadesandfacials";
+
 const SERVICES = [
   {
     num: "01",
     name: "Signature Fades",
     detail: "Precision taper, skin fade, texture.",
-    image: "/hair1.jpg",
+    image: `${BASE_PATH}/hair1.jpg`,
     imageAlt: "Signature fade result",
   },
   {
     num: "02",
     name: "Hot Towel Shaves",
     detail: "Classic straight-razor finish.",
-    image: "/hair2.jpg",
+    image: `${BASE_PATH}/hair2.jpg`,
     imageAlt: "Hot towel shave",
   },
   {
     num: "03",
     name: "Restorative Facials",
     detail: "Steam, extract, calm, refresh.",
-    image: "/hair3.jpg",
+    image: `${BASE_PATH}/hair3.jpg`,
     imageAlt: "Facial treatment",
   },
 ];

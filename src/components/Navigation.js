@@ -4,12 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+const BASE_PATH = "/fadesandfacials";
+
 const links = [
-  { href: "#home", label: "Home", idx: "01" },
-  { href: "#book", label: "Book Now", idx: "02" },
-  { href: "#services", label: "Services", idx: "03" },
-  { href: "#products", label: "Products", idx: "04" },
-  { href: "#cart", label: "Cart", idx: "05" },
+  { href: `${BASE_PATH}/#home`, label: "Home", idx: "01" },
+  { href: `${BASE_PATH}/#book`, label: "Book Now", idx: "02" },
+  { href: `${BASE_PATH}/#services`, label: "Services", idx: "03" },
+  { href: `${BASE_PATH}/#products`, label: "Products", idx: "04" },
+  { href: `${BASE_PATH}/#cart`, label: "Cart", idx: "05" },
 ];
 
 const spring = { type: "spring", stiffness: 420, damping: 28 };
@@ -133,12 +135,12 @@ export function Navigation() {
         aria-label="Main"
       >
         <a
-          href="#home"
+          href={`${BASE_PATH}/#home`}
           className="nav-brand nav-brand--logo-only"
           aria-label="Fades & Facials — Home"
         >
           <Image
-            src="/logo.png"
+            src={`${BASE_PATH}/logo.png`}
             alt=""
             width={90}
             height={66}

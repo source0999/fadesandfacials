@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',
-    images: { unoptimized: true },
-    // IMPORTANT: This must match your repo name exactly
-    basePath: '/FadesAndFacials', 
+    images: {
+      unoptimized: true, // This stops Next.js from creating those long cached filenames
+    },
+    basePath: '/fadesandfacials',
+    assetPrefix: '/fadesandfacials',
   };
   
   export default nextConfig;

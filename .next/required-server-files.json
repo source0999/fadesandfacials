@@ -13,7 +13,7 @@
     "typedRoutes": false,
     "distDir": ".next",
     "cleanDistDir": true,
-    "assetPrefix": "/FadesAndFacials",
+    "assetPrefix": "/fadesandfacials",
     "cacheMaxMemorySize": 52428800,
     "configOrigin": "next.config.mjs",
     "useFileSystemPublicRoutes": true,
@@ -47,7 +47,7 @@
         256,
         384
       ],
-      "path": "/FadesAndFacials/_next/image",
+      "path": "/fadesandfacials/_next/image",
       "loader": "default",
       "loaderFile": "",
       "domains": [],
@@ -71,9 +71,9 @@
       "pagesBufferLength": 5
     },
     "amp": {
-      "canonicalBase": "/FadesAndFacials"
+      "canonicalBase": "/fadesandfacials"
     },
-    "basePath": "/FadesAndFacials",
+    "basePath": "/fadesandfacials",
     "sassOptions": {},
     "trailingSlash": false,
     "i18n": null,

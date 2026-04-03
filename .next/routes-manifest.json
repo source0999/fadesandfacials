@@ -2,15 +2,15 @@
   "version": 3,
   "pages404": true,
   "caseSensitive": false,
-  "basePath": "/FadesAndFacials",
+  "basePath": "/fadesandfacials",
   "redirects": [
     {
-      "source": "/FadesAndFacials/",
-      "destination": "/FadesAndFacials",
+      "source": "/fadesandfacials/",
+      "destination": "/fadesandfacials",
       "basePath": false,
       "internal": true,
       "statusCode": 308,
-      "regex": "^/FadesAndFacials/$"
+      "regex": "^/fadesandfacials/$"
     },
     {
       "source": "/:path+/",
