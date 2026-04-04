@@ -2,36 +2,37 @@
 
 import Image from "next/image";
 import { BASE_PATH } from "../lib/basePath";
+import { useBookModal } from "./BookModalProvider";
 
 const SERVICES = [
   {
     num: "01",
     name: "Signature Fades",
     detail: "Precision taper, skin fade, texture.",
-    image: `${BASE_PATH}/hair1.jpg`,
+    image: `${BASE_PATH}/fade.gif`,
     imageAlt: "Signature fade result",
   },
   {
     num: "02",
     name: "Hot Towel Shaves",
     detail: "Classic straight-razor finish.",
-    image: `${BASE_PATH}/hair2.jpg`,
+    image: `${BASE_PATH}/lele2.gif`,
     imageAlt: "Hot towel shave",
   },
   {
     num: "03",
     name: "Restorative Facials",
     detail: "Steam, extract, calm, refresh.",
-    image: `${BASE_PATH}/hair3.jpg`,
+    image: `${BASE_PATH}/facial.gif`,
     imageAlt: "Facial treatment",
   },
 ];
 
 export function ServicesShowcase() {
-  const bookHref = `${BASE_PATH}/#book`;
+  const { openBookModal } = useBookModal();
 
   return (
-    <section id="services" className="services-showcase">
+    <section id="services" className="services-showcase services-showcase-lifetime">
       <div className="services-showcase-inner">
         <header className="services-showcase-intro">
           <p className="services-micro-heading">Services</p>
@@ -60,10 +61,15 @@ export function ServicesShowcase() {
                   height={800}
                   className="services-item-img"
                   sizes="(max-width: 768px) 100vw, 42rem"
+                  unoptimized
                 />
-                <a href={bookHref} className="services-item-micro-tag">
+                <button
+                  type="button"
+                  className="services-item-micro-tag"
+                  onClick={openBookModal}
+                >
                   Book Now →
-                </a>
+                </button>
               </div>
             </li>
           ))}

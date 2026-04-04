@@ -1,5 +1,6 @@
 import { Hero } from "../components/Hero";
 import { Navigation } from "../components/Navigation";
+import { ProductsBackgroundCarousel } from "../components/ProductsBackgroundCarousel";
 import { ProductsSection } from "../components/ProductsSection";
 import { ReserveFab } from "../components/ReserveFab";
 import { ScrollReveal } from "../components/ScrollReveal";
@@ -13,11 +14,14 @@ export default function Home() {
       <main className="main-surface">
         <Hero />
 
-        <ServicesShowcase />
+        <div className="services-curtain-wrap">
+          <ServicesShowcase />
+        </div>
 
-        {/* No ScrollReveal: iOS Safari/Chrome often never satisfy Framer whileInView; content stayed opacity:0 */}
-        <div className="products-surface">
-          <div className="section-block">
+        <div className="products-surface products-surface--immersive">
+          <ProductsBackgroundCarousel />
+          <div className="products-immersive-scrim" aria-hidden />
+          <div className="section-block products-immersive-content">
             <ProductsSection />
           </div>
         </div>

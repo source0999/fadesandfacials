@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BASE_PATH } from "../lib/basePath";
+import { useBookModal } from "./BookModalProvider";
 
 const links = [
   { href: `${BASE_PATH}/#home`, label: "Home", idx: "01" },
@@ -77,15 +78,19 @@ function MorphHamburger({ open, onClick, className }) {
   );
 }
 
+function isBookLinkHref(href) {
+  return typeof href === "string" && href.includes("#book");
+}
+
 export function Navigation() {
+  const { openBookModal } = useBookModal();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const elevated = scrolled || open;
 
   useEffect(() => {
     function onScroll() {
-      // 0px scroll => fully transparent.
-      setScrolled(window.scrollY > 0);
+      setScrolled(window.scrollY > 50);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -99,6 +104,11 @@ export function Navigation() {
     return () => {
       document.body.style.overflow = prev;
     };
+  }, [open]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("site-menu-open", open);
+    return () => document.documentElement.classList.remove("site-menu-open");
   }, [open]);
 
   useEffect(() => {
@@ -130,7 +140,7 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`nav-header${elevated ? " nav-header--elevated" : ""}`}
+        className={`nav-header${elevated ? " nav-header--elevated" : ""}${open ? " nav-header--menu-open" : ""}`}
         aria-label="Main"
       >
         <a
@@ -151,7 +161,16 @@ export function Navigation() {
 
         <nav className="nav-desktop" aria-label="Primary desktop">
           {links.map((link) => (
-            <a key={link.href} href={link.href} className="nav-desktop-link">
+            <a
+              key={link.href}
+              href={link.href}
+              className="nav-desktop-link"
+              onClick={(e) => {
+                if (!isBookLinkHref(link.href)) return;
+                e.preventDefault();
+                openBookModal();
+              }}
+            >
               {link.label}
             </a>
           ))}
@@ -200,7 +219,13 @@ export function Navigation() {
                     href={link.href}
                     className="nav-overlay-link"
                     variants={menuItem}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => {
+                      if (isBookLinkHref(link.href)) {
+                        e.preventDefault();
+                        openBookModal();
+                      }
+                      setOpen(false);
+                    }}
                   >
                     <span className="nav-overlay-idx">{link.idx}</span>
                     <span className="nav-overlay-label">{link.label}</span>

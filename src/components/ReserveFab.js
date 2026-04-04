@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BASE_PATH } from "../lib/basePath";
+import { useBookModal } from "./BookModalProvider";
 
 const SHOW_AFTER_PX = 120;
 
 export function ReserveFab() {
+  const { openBookModal } = useBookModal();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -18,12 +19,13 @@ export function ReserveFab() {
   }, []);
 
   return (
-    <a
-      href={`${BASE_PATH}/#book`}
+    <button
+      type="button"
       className={`reserve-fab${visible ? " reserve-fab--visible" : ""}`}
       tabIndex={visible ? 0 : -1}
+      onClick={openBookModal}
     >
       Reserve Now
-    </a>
+    </button>
   );
 }
