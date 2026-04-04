@@ -1,4 +1,5 @@
 import { Exo_2, Inter } from "next/font/google";
+import { SmoothScroll } from "../components/SmoothScroll";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,8 +26,8 @@ export const metadata = {
   title: "Fades & Facials | Barbershop",
   description: "It's more than a haircut. It's an experience.",
   icons: {
-    icon: "/logo.ico",
-    apple: "/logo.png",
+    icon: sub ? `${sub}/logo.ico` : "/logo.ico",
+    apple: sub ? `${sub}/logo.png` : "/logo.png",
   },
   appleWebApp: {
     capable: true,
@@ -47,7 +48,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={exo.variable}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

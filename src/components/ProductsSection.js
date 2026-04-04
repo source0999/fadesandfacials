@@ -91,10 +91,14 @@ function ProductCard({ product }) {
         transformStyle: "flat",
       };
 
+  const href = `${BASE_PATH}/#cart`;
+
   return (
-    <motion.article
+    <motion.a
       ref={ref}
+      href={href}
       className="product-card"
+      aria-label={`${product.name}, ${product.price} — view in cart`}
       onPointerMove={tiltEnabled ? onMove : undefined}
       onPointerLeave={tiltEnabled ? onLeave : undefined}
       style={tiltStyle}
@@ -102,10 +106,13 @@ function ProductCard({ product }) {
       transition={{ type: "spring", stiffness: 400, damping: 28 }}
     >
       <div className="product-card-face">
+        <span className="product-card-plus" aria-hidden="true">
+          +
+        </span>
         <div className="product-card-photo product-card-photo--png">
           <img
             src={product.image}
-            alt={product.name}
+            alt=""
             loading="eager"
             decoding="async"
             className="product-card-img product-card-img--png"
@@ -114,9 +121,8 @@ function ProductCard({ product }) {
         <span className="product-card-tag">{product.tag}</span>
         <h3 className="product-card-name">{product.name}</h3>
         <span className="product-card-price">{product.price}</span>
-        <span className="product-card-cta">Tap to explore</span>
       </div>
-    </motion.article>
+    </motion.a>
   );
 }
 

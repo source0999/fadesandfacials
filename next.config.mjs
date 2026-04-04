@@ -4,6 +4,11 @@ const repoBasePath = "/fadesandfacials";
 
 const nextConfig = {
   output: "export",
+  // Next 15.5 defaults this on; it has caused dev 500s / bad webpack chunks
+  // ("a[d] is not a function", SegmentViewNode missing from client manifest).
+  experimental: {
+    devtoolSegmentExplorer: false,
+  },
   images: {
     unoptimized: true,
   },

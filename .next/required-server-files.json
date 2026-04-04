@@ -205,7 +205,7 @@
       "inlineCss": false,
       "useCache": false,
       "globalNotFound": false,
-      "devtoolSegmentExplorer": true,
+      "devtoolSegmentExplorer": false,
       "browserDebugInfoInTerminal": false,
       "optimizeRouterScrolling": false,
       "middlewareClientMaxBodySize": 10485760,

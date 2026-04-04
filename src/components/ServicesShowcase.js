@@ -28,25 +28,25 @@ const SERVICES = [
 ];
 
 export function ServicesShowcase() {
+  const bookHref = `${BASE_PATH}/#book`;
+
   return (
     <section id="services" className="services-showcase">
-      <div className="services-kinetic-layer" aria-hidden="true">
-        <p className="services-kinetic-text">
-          FADES • SHAVES • FACIALS • CRAFT • FADES • SHAVES • FACIALS •
-        </p>
-      </div>
-
       <div className="services-showcase-inner">
-        <h2 className="services-heading">Services</h2>
-        <p className="services-lede">
-          Engineered sessions — not templates. Every visit is calibrated to you.
-        </p>
+        <header className="services-showcase-intro">
+          <p className="services-micro-heading">Services</p>
+          <h2 className="services-statement-title">
+            Elevated Grooming for the Modern Man
+          </h2>
+        </header>
 
         <ul className="services-list">
           {SERVICES.map((s) => (
             <li key={s.num} className="services-list-item">
-              <div className="services-list-grid">
-                <span className="services-num">{s.num}</span>
+              <div className="services-copy-block">
+                <span className="services-num-bg" aria-hidden="true">
+                  {s.num}
+                </span>
                 <div className="services-copy">
                   <span className="services-name">{s.name}</span>
                   <span className="services-detail">{s.detail}</span>
@@ -61,6 +61,9 @@ export function ServicesShowcase() {
                   className="services-item-img"
                   sizes="(max-width: 768px) 100vw, 42rem"
                 />
+                <a href={bookHref} className="services-item-micro-tag">
+                  Book Now →
+                </a>
               </div>
             </li>
           ))}
