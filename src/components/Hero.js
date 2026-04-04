@@ -1,17 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { BASE_PATH } from "../lib/basePath";
+import { useBookModal } from "./BookModalProvider";
+import { useCinematicBackgroundScale } from "../hooks/useCinematicBackgroundScale";
 
 export function Hero() {
-  const bookHref = `${BASE_PATH}/#book`;
+  const { openBookModal } = useBookModal();
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const scale = useCinematicBackgroundScale(sectionRef, 1.1);
 
   return (
     <section
@@ -25,24 +23,20 @@ export function Hero() {
           className="hero-experience-media-scale"
           style={{
             scale,
-            transformOrigin: "50% 0%",
+            transformOrigin: "50% 50%",
           }}
         >
-          <video
-            className="hero-experience-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={`${BASE_PATH}/hair1.jpg`}
-            aria-hidden
-          >
-            <source src={`${BASE_PATH}/chairs.mp4`} type="video/mp4" />
-          </video>
+          <img
+            src={`${BASE_PATH}/lele1.gif`}
+            alt=""
+            className="hero-experience-bg"
+            width={1920}
+            height={1080}
+            decoding="async"
+            fetchPriority="high"
+          />
         </motion.div>
-        <div className="hero-experience-fade" aria-hidden />
-        <div className="hero-experience-melt" aria-hidden />
+        <div className="hero-experience-overlay" aria-hidden />
       </div>
 
       <div className="hero-experience-content">
@@ -57,9 +51,13 @@ export function Hero() {
         </p>
 
         <div className="hero-experience-cta" id="book">
-          <a href={bookHref} className="btn-appointment hero-experience-btn">
+          <button
+            type="button"
+            className="btn-appointment hero-experience-btn"
+            onClick={openBookModal}
+          >
             Make an Appointment
-          </a>
+          </button>
         </div>
       </div>
     </section>

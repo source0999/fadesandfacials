@@ -1,4 +1,6 @@
 import { Exo_2, Inter } from "next/font/google";
+import "lenis/dist/lenis.css";
+import { BookModalProvider } from "../components/BookModalProvider";
 import { SmoothScroll } from "../components/SmoothScroll";
 import "./globals.css";
 
@@ -14,15 +16,31 @@ const exo = Exo_2({
   variable: "--font-exo",
 });
 
-const origin = (process.env.NEXT_PUBLIC_SITE_ORIGIN || "http://localhost:3000").replace(
-  /\/$/,
-  ""
-);
-const sub = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
-const metadataBaseUrl = sub ? `${origin}${sub}/` : `${origin}/`;
+function resolveMetadataBase() {
+  let origin = (process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "http://localhost:3000")
+    .trim()
+    .replace(/\/$/, "");
+  if (!origin || !/^https?:\/\//i.test(origin)) {
+    origin = "http://localhost:3000";
+  }
+  const sub = (process.env.NEXT_PUBLIC_BASE_PATH ?? "")
+    .trim()
+    .replace(/\/$/, "");
+  const href = sub
+    ? `${origin}${sub.startsWith("/") ? sub : `/${sub}`}/`
+    : `${origin}/`;
+  try {
+    return new URL(href);
+  } catch {
+    return new URL("http://localhost:3000/");
+  }
+}
+
+const metadataBase = resolveMetadataBase();
+const sub = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").trim().replace(/\/$/, "");
 
 export const metadata = {
-  metadataBase: new URL(metadataBaseUrl),
+  metadataBase,
   title: "Fades & Facials | Barbershop",
   description: "It's more than a haircut. It's an experience.",
   icons: {
@@ -49,7 +67,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={exo.variable}>
       <body className={inter.className}>
-        <SmoothScroll>{children}</SmoothScroll>
+        <BookModalProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </BookModalProvider>
       </body>
     </html>
   );

@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import Lenis from "lenis";
-import "lenis/dist/lenis.css";
 
 export function SmoothScroll({ children }) {
   useEffect(() => {
@@ -11,17 +10,22 @@ export function SmoothScroll({ children }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return undefined;
 
-    const lenis = new Lenis({
-      autoRaf: true,
-      lerp: 0.085,
-      smoothWheel: true,
-      anchors: true,
-    });
+    let lenis;
+    try {
+      lenis = new Lenis({
+        autoRaf: true,
+        lerp: 0.085,
+        smoothWheel: true,
+        anchors: true,
+      });
+    } catch {
+      return undefined;
+    }
 
     return () => {
-      lenis.destroy();
+      lenis?.destroy();
     };
   }, []);
 
-  return children;
+  return <Fragment>{children}</Fragment>;
 }

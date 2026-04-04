@@ -70,11 +70,13 @@ function ProductCard({ product }) {
     my.set(0);
   }
 
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [7, -7]), {
+  const rotateXTarget = useTransform(my, [-0.5, 0.5], [7, -7]);
+  const rotateYTarget = useTransform(mx, [-0.5, 0.5], [-10, 10]);
+  const rotateX = useSpring(rotateXTarget, {
     stiffness: 260,
     damping: 22,
   });
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-10, 10]), {
+  const rotateY = useSpring(rotateYTarget, {
     stiffness: 260,
     damping: 22,
   });
